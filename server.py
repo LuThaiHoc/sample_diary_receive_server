@@ -19,6 +19,19 @@ class Diary:
         self.media_type = media_type
         self.media_filename = media_filename
         self.time_insert = time_insert
+    def show(self):
+        print("id:", self.id)
+        print("session_id:", self.session_id)
+        print("team:", self.team)
+        print("name:", self.name)
+        print("from_user:", self.from_user)
+        print("location:", self.location)
+        print("time:", self.time)
+        print("media:", self.media)
+        print("media_type:", self.media_type)
+        print("media_filename:", self.media_filename)
+        print("time_insert:", self.time_insert)
+
 
 diaries = []
 
@@ -44,7 +57,7 @@ def upload_diary():
         media_filename=filename,
         time_insert=datetime.strptime(data.get('time_insert'), '%Y-%m-%d %H:%M:%S')
     )
-
+    diary.show()
     diaries.append(diary)
 
     return jsonify({'message': 'Diary entry created successfully'}), 201
