@@ -1,0 +1,100 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Diary Submission</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #f2f2f2;
+            margin: 0;
+            padding: 0;
+        }
+
+        .container {
+            max-width: 500px;
+            margin: 50px auto;
+            background-color: #fff;
+            padding: 20px;
+            border-radius: 8px;
+            box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.1);
+        }
+
+        h1 {
+            text-align: center;
+        }
+
+        label {
+            font-weight: bold;
+        }
+
+        input[type="text"],
+        input[type="datetime-local"],
+        input[type="file"],
+        input[type="submit"] {
+            width: 100%;
+            padding: 10px;
+            margin-top: 5px;
+            margin-bottom: 15px;
+            border: 1px solid #ccc;
+            border-radius: 5px;
+            box-sizing: border-box;
+        }
+
+        input[type="submit"] {
+            background-color: #4CAF50;
+            color: white;
+            border: none;
+            cursor: pointer;
+        }
+
+        input[type="submit"]:hover {
+            background-color: #45a049;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>Diary Submission</h1>
+        <form id="diaryForm" action="/upload_diary" method="post" enctype="multipart/form-data">
+            <label for="name">Name:</label>
+            <input type="text" name="name" id="name" required>
+
+            <label for="team">Team:</label>
+            <input type="text" name="team" id="team" required>
+
+            <label for="from_user">From User:</label>
+            <input type="text" name="from_user" id="from_user" required>
+
+            <label for="location">Location:</label>
+            <input type="text" name="location" id="location" required>
+
+            <label for="time">Time:</label>
+            <input type="datetime-local" name="time" id="time" required>
+
+            <label for="media">Media File:</label>
+            <input type="file" name="media" id="media" required>
+
+            <input type="submit" value="Submit Diary">
+        </form>
+    </div>
+
+    <script>
+        document.getElementById("diaryForm").addEventListener("submit", function(event) {
+            event.preventDefault(); // Prevent form submission
+
+            // Get the entered time value
+            var timeInput = document.getElementById("time");
+            var enteredTime = timeInput.value;
+
+            // Convert the entered time to the desired format (YYYY-MM-DD HH:MM:SS)
+            var formattedTime = enteredTime.replace("T", " ") + ":00";
+
+            // Update the time input value with the formatted time
+            timeInput.value = formattedTime;
+
+            // Submit the form
+            this.submit();
+        });
+    </script>
+</body>
+</html>

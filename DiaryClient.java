@@ -14,15 +14,11 @@ public class DiaryClient {
     public static void main(String[] args) throws IOException, InterruptedException {
         String url = "http://localhost:5000/upload_diary";
         Map<Object, Object> data = Map.of(
-                "id", "1",
-                "session_id", "session1",
-                "team", "team1",
-                "name", "diary1",
-                "from_user", "user1",
-                "location", "location1",
-                "time", "2024-05-20 12:34:56",
-                "media_type", "image",
-                "time_insert", "2024-05-20 12:34:56");
+                "name", "Attack Target 1",
+                "team", "Red",
+                "from_user", "alex",
+                "location", "HA NOI",
+                "time", "2024-05-20T12:34");
         String imgPath = "./toUpload/map.png";
         Path filePath = Paths.get(imgPath);
 

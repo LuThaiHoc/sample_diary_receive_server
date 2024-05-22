@@ -1,10 +1,16 @@
-from flask import Flask, request, jsonify
+from flask import Flask, render_template, request, jsonify
 from datetime import datetime
 from werkzeug.utils import secure_filename
 import os
+import mimetypes
+from PyQt5.QtCore import QDateTime
 
 app = Flask(__name__)
 app.config['UPLOAD_FOLDER'] = 'uploads'
+
+@app.route('/')
+def index():
+    return render_template('index.html')
 
 class Diary:
     def __init__(self, id="", session_id="", team="", name="", from_user="", location="", time=datetime.now(), media="", media_type="", media_filename="", time_insert=datetime.now()):
@@ -43,6 +49,19 @@ def upload_diary():
     filename = secure_filename(media.filename)
     filepath = os.path.join(app.config['UPLOAD_FOLDER'], filename)
     media.save(filepath)
+    
+    media_binary_data = media.read()
+    
+    # Get media type
+    media_type = mimetypes.guess_type(filename)[0]
+    media_class = "file"
+     # Classify media type
+    if media_type:
+        if media_type.startswith('image'):
+            media_class = "image"
+        elif media_type.startswith('video'):
+            media_class = "video"
+       
 
     diary = Diary(
         id=data.get('id', ''),
@@ -51,12 +70,13 @@ def upload_diary():
         name=data.get('name', ''),
         from_user=data.get('from_user', ''),
         location=data.get('location', ''),
-        time=datetime.strptime(data.get('time'), '%Y-%m-%d %H:%M:%S'),
-        media=filepath,
-        media_type=data.get('media_type', ''),
+        time=QDateTime(datetime.strptime(data.get('time'), '%Y-%m-%dT%H:%M')),
+        media=media_binary_data,
+        media_type=media_class,
         media_filename=filename,
-        time_insert=datetime.strptime(data.get('time_insert'), '%Y-%m-%d %H:%M:%S')
+        time_insert=QDateTime.currentDateTime()
     )
+
     diary.show()
     diaries.append(diary)
 
@@ -65,4 +85,4 @@ def upload_diary():
 if __name__ == '__main__':
     if not os.path.exists(app.config['UPLOAD_FOLDER']):
         os.makedirs(app.config['UPLOAD_FOLDER'])
-    app.run(debug=True)
+    app.run(host="localhost", port=5000, debug=True)

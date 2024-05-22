@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Diary Submission</title>
+    <style>
+        /* Add your custom CSS styles here */
+    </style>
+</head>
+<body>
+    <h1>Diary Submission</h1>
+    <form action="/upload_diary" method="post" enctype="multipart/form-data">
+        <label for="name">Name:</label>
+        <input type="text" name="name" id="name" required><br><br>
+
+        <label for="team">Team:</label>
+        <input type="text" name="team" id="team" required><br><br>
+
+        <label for="from_user">From User:</label>
+        <input type="text" name="from_user" id="from_user" required><br><br>
+
+        <label for="location">Location:</label>
+        <input type="text" name="location" id="location" required><br><br>
+
+        <label for="time">Time:</label>
+        <input type="datetime-local" name="time" id="time" required><br><br>
+
+        <label for="media">Media File:</label>
+        <input type="file" name="media" id="media" required><br><br>
+
+        <input type="submit" value="Submit Diary">
+    </form>
+</body>
+</html>
